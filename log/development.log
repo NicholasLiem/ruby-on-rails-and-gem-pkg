@@ -1,0 +1,106 @@
+  [1m[35m (7.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2023-12-25 10:09:56.025765', '2023-12-25 10:09:56.025768') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePosts (20231225100946)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "content" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231225100946') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/posts" for 127.0.0.1 at 2023-12-25 17:12:03 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/controllers/posts_controller.rb:6:in `index'
+Completed 200 OK in 32ms (Views: 1.6ms | ActiveRecord: 1.6ms | Allocations: 13719)
+
+
+Started POST "/posts" for 127.0.0.1 at 2023-12-25 17:12:27 +0700
+Processing by PostsController#create as */*
+  Parameters: {"title"=>"New Post", "content"=>"Content of the new post.", "post"=>{"title"=>"New Post", "content"=>"Content of the new post."}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/posts_controller.rb:22:in `create'
+  [1m[36mPost Create (1.4ms)[0m  [1m[32mINSERT INTO "posts" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "New Post"], ["content", "Content of the new post."], ["created_at", "2023-12-25 10:12:27.865118"], ["updated_at", "2023-12-25 10:12:27.865118"]]
+  ↳ app/controllers/posts_controller.rb:22:in `create'
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/posts_controller.rb:22:in `create'
+Completed 201 Created in 32ms (Views: 0.4ms | ActiveRecord: 3.8ms | Allocations: 12311)
+
+
+Started GET "/posts" for 127.0.0.1 at 2023-12-25 17:12:34 +0700
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/controllers/posts_controller.rb:6:in `index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.1ms | Allocations: 719)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."title" = ? LIMIT ?[0m  [["title", "First Post"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPost Create (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "First Post"], ["content", "This is the content of the first post."], ["created_at", "2023-12-25 10:15:09.623823"], ["updated_at", "2023-12-25 10:15:09.623823"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."title" = ? LIMIT ?[0m  [["title", "Second Post"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPost Create (0.9ms)[0m  [1m[32mINSERT INTO "posts" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "Second Post"], ["content", "This is the content of the second post."], ["created_at", "2023-12-25 10:15:09.627046"], ["updated_at", "2023-12-25 10:15:09.627046"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPost Load (0.0ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."title" = ? LIMIT ?[0m  [["title", "Third Post"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPost Create (0.8ms)[0m  [1m[32mINSERT INTO "posts" ("title", "content", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["title", "Third Post"], ["content", "This is the content of the third post."], ["created_at", "2023-12-25 10:15:09.630231"], ["updated_at", "2023-12-25 10:15:09.630231"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/posts" for 127.0.0.1 at 2023-12-25 17:15:12 +0700
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/controllers/posts_controller.rb:6:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.1ms | Allocations: 830)
+
+
+Started GET "/posts" for 127.0.0.1 at 2023-12-25 17:34:39 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+LoadError (cannot load such file -- test_ruby_api):
+  
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/posts_controller.rb:3:in `<main>'
+Started GET "/posts" for 127.0.0.1 at 2023-12-25 17:35:50 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+LoadError (cannot load such file -- test_ruby_api):
+  
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/posts_controller.rb:3:in `<main>'
+Started GET "/posts" for 127.0.0.1 at 2023-12-25 17:37:49 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+LoadError (cannot load such file -- test_ruby_api):
+  
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/posts_controller.rb:3:in `<main>'
+Started GET "/posts" for 127.0.0.1 at 2023-12-25 17:37:51 +0700
+  
+LoadError (cannot load such file -- test_ruby_api):
+  
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/posts_controller.rb:3:in `<main>'
+Started GET "/posts" for 127.0.0.1 at 2023-12-25 17:38:22 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PostsController#index as */*
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  ↳ app/controllers/posts_controller.rb:8:in `index'
+Completed 200 OK in 25ms (Views: 12.3ms | ActiveRecord: 1.9ms | Allocations: 18501)
+
+
+Started GET "/posts/1" for 127.0.0.1 at 2023-12-25 17:39:38 +0700
+Processing by PostsController#show as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mPost Load (0.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/posts_controller.rb:14:in `show'
+TestApiGem: Processing post data
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.1ms | Allocations: 2846)
+
+
+  
+NoMethodError (undefined method `transform_values' for #<Post id: 1, title: "New Post", content: "Content of the new post.", created_at: "2023-12-25 10:12:27.865118000 +0000", updated_at: "2023-12-25 10:12:27.865118000 +0000">):
+  
+app/controllers/posts_controller.rb:17:in `show'
